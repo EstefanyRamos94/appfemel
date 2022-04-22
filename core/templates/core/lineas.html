@@ -1,0 +1,42 @@
+{% extends 'core/base.html' %} 
+{% block titulo %}Lineas de Crédito{% endblock %}
+{% block contenido %} 
+    {% load static %}
+    <section class="container-fluid mt-2">
+        <div class="d-flex align-items-start">
+            <div class="col-12 table-responsive">
+                <table class="table table-striped table-hover table-bordered">
+                  <thead class="bg-success text-light text-center">
+                    <tr>
+                        <th>Linea de Crédito</th>
+                        <th>Destino</th>
+                        <th>Consulta Centrales Riesgo</th>
+                        <th>Plazo Vinculación</th>
+                        <th>Plazo Máximo</th>
+                        <th>Interés Anual</th>
+                        <th>Soportes Requeridos</th>
+                        <th>Opciones</th>
+                      </tr>
+                  </thead>
+                  <tbody class="text-center">  
+                    {% for item in lineacredito_list %}
+                        {% autoescape off%}
+                        <tr>
+                            <th>{{ item.nombre_linea }}</th>    
+                            <th>{{ item.destino }}</th>
+                            <th>{{ item.consulta_riesgo }}</th>
+                            <th>{{ item.periodo_vinculacion }}</th>
+                            <th>{{ item.plazo_maximo}}</th>
+                            <th>{{ item.taza_eanual }}</th>
+                            <th>{{ item.soportes }}</th>
+                            <th><a class="nav-link" href="/admin/fondo/lineacredito/{{ item.id }}">Ver más</a></th>
+                        </tr>                        
+                        {% endautoescape %}
+                    {% endfor %}
+                  </tbody>
+                </table>          
+            </div>
+        </div>
+    </section>
+
+{% endblock %}
