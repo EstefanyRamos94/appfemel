@@ -1,0 +1,83 @@
+{% extends 'core/base.html' %} {% block titulo %}FEMEL Gestión de Fondo de Empleados{% endblock %}
+{% block contenido %} 
+
+  {% load static %}
+  {% load humanize %}
+
+  {% if request.user.is_authenticated %}
+  <script src="http://code.jquery.com/jquery-latest.js"></script>
+  <section class="container" id="dashboard">
+
+    <div class="col-8 mt-2 mx-1 card text-light bg-secondary mb-3">
+      <div class="card-header">Gestión de Documentos</div>
+      <div class="card-body">
+        <h5 class="card-title">Orden de Ejecución:</h5>
+        <p class="card-text">
+          <ol>
+            <li>Descargar los documentos: Pagaré y Autorización de Descuento, Imprimir y Firmar</li>
+            <li>Escanear los documentos firmados y subir a la Solicitud</li>
+          </ol>
+        </p>
+      </div>
+    </div>
+
+    <div class="row mt-2">
+      <div class="col-12 table-responsive">
+        <table class="table table-striped table-hover table-bordered">
+          <thead class="bg-success text-light text-center">
+            <tr>
+              <th>Usuario</th>
+              <th>Linea de Crédito</th>
+              <th>Descargables</th>
+            </tr>
+          </thead>
+          <tbody class="text-center">
+            
+            {% for sol in solicitudcredito_list %}
+              {% if request.user.is_superuser %}
+              <tr>
+                <th>
+                  {{ sol.usuario.first_name }} {{ sol.usuario.last_name }}
+                </th>
+                <th>
+                  {{ sol.credito }}
+                </th>
+                <th>
+                  <a href="/admin/fondo/detallesolicitudes/{{sol.id}}">Ver Gestión de Solicitudes</a>
+                </th>           
+              </tr>
+              {% else %}
+                {% if request.user.username == sol.usuario.username%}
+                <tr>
+                  <th>
+                    {{ sol.usuario.first_name }} {{ sol.usuario.last_name }}
+                  </th>
+                  <th>
+                    {{ sol.credito }}
+                  </th>
+                  <th>
+                    <a href="/fondo/pdf-pagare/{{ sol.id }}" class="btn btn-primary">
+                        Pagare
+                    </a>
+                    <a href="/fondo/pdf-autorizacion-descuento/{{ sol.id }}" class="btn btn-danger">
+                        Autorización de descuento
+                    </a>
+                    <a href="/admin/fondo/solicitudcredito/{{ sol.id }}" class="btn btn-secondary">
+                      Subir Documentos
+                  </a>
+                  </th>
+                  {% endif %}
+                </tr>
+              {% endif %}
+            {% endfor %}           
+          </tbody>   
+        </table>
+      </div>
+    </div>
+  </section>
+  
+  {% else %}
+    
+  {% endif %}
+{% endblock %}
+
