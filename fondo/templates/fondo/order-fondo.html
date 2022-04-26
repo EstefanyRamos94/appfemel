@@ -6,7 +6,7 @@
 
   {% if request.user.is_authenticated %}
   <script src="http://code.jquery.com/jquery-latest.js"></script>
-  <section class="container" id="dashboard">
+  <section class="container" id="dashboard"><div class="row">
 
     <div class="col-8 mt-2 mx-1 card text-light bg-secondary mb-3">
       <div class="card-header">Gestión de Documentos</div>
@@ -20,6 +20,10 @@
         </p>
       </div>
     </div>
+
+    <div class="col text-center mt-5">
+      <a class="btn btn-success btn-lg" href="http://">Nueva Solicitud de Crédito</a>
+    </div></div>
 
     <div class="row mt-2">
       <div class="col-12 table-responsive">
