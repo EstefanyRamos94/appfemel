@@ -42,7 +42,7 @@
           </thead>
           <tbody class="text-center">   
             {% for sol in solicitudcredito_list%}
-              {% if sol.estado_solicitud != "Aceptada" %}
+              {% if sol.estado_solicitud != "Aceptada" and sol.estado_solicitud != "Rechazada" %}
                 <tr>
                   <th>
                     {{ sol.usuario.first_name }} {{ sol.usuario.last_name }}
